@@ -49,6 +49,7 @@
 ```
  Edit config.py with your own values
 </detail>
+
 <details>
 <summary>Contact us 🌟</summary>
 <p align="center"><a href="https://t.me/The_Arc_Music"><img src="https://telegra.ph/file/50c21b237d00309571e00.jpg" width="2000"></a></p>
