@@ -7,7 +7,8 @@ from requests import get, post
 from os import environ
 import config
 
-from telegram.ext import CommandHandler, Updater
+from telegram.ext import CommandHandler, Updater, CallbackContext
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
 server = Flask(__name__)
 
@@ -33,13 +34,6 @@ dispatcher = updater.dispatcher
 print("If you need more help, join @ScenarioXsupport in Telegram.")
 
 
-def start(_bot, update):
-    """/start message for bot"""
-    message = update.effective_message
-    message.reply_text(
-        f"This is the Updates watcher for {PROJECT_NAME}. I just notify users about what's happen on their Git repositories through webhooks.\n\ see /help to use this bot on your groups.",
-        parse_mode="markdown")
-
 
 def help(_bot, update):
     """/help message for the bot"""
@@ -49,14 +43,21 @@ def help(_bot, update):
         parse_mode="markdown"
     )
 
-
-def support(_bot, update):
-    """Links to Support"""
+def lol(update: Update, context: CallbackContext):
     message = update.effective_message
-    message.reply_text(
-        f"*Getting Support*\n\nTo get support in using the bot, join [ScenarioXsupport](https://t.me/ScenarioXsupport).",
-        parse_mode="markdown"
-    )
+    Pop = "https://telegra.ph/file/18155a81e0d3f0e71fd09.jpg"
+    text = "Hello there I'm a gitgram bot made by TeamScenario \nCheck support group for help regarding bot or deployment."
+    
+    buttons = [
+             [
+               InlineKeyboardButton("Support", url="https://t.me/ScenarioXsupport"),
+               InlineKeyboardButton("Updates", url="https://t.me/TeamScenario"),
+             ],
+             [InlineKeyboardButton("Source", url="https://github.com/TeamScenario/GitGram")],  
+          ]
+
+    reply_markup = InlineKeyboardMarkup(buttons)
+    update.message.reply_photo(photo=Pop, caption=text, reply_markup=reply_markup, run_async=True)
 
 
 def source(_bot, update):
@@ -75,13 +76,11 @@ def getSourceCodeLink(_bot, update):
         f"{GIT_REPO_URL}"
     )
 
-
-start_handler = CommandHandler("start", start)
+dispatcher.add_handler(CommandHandler("start", lol"))
 help_handler = CommandHandler("help", help)
 supportCmd = CommandHandler("support", support)
 sourcecode = CommandHandler("source", source)
 
-dispatcher.add_handler(start_handler)
 dispatcher.add_handler(help_handler)
 dispatcher.add_handler(supportCmd)
 dispatcher.add_handler(sourcecode)
