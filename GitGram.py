@@ -115,7 +115,7 @@ def getSourceCodeLink(_bot, update):
         f"{GIT_REPO_URL}"
     )
 
-def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+def cancel(update: Update, context: CallbackContext):
     user = update.message.from_user
     update.message.reply_text("Ok! Send /start")
 
