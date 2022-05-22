@@ -118,7 +118,7 @@ dispatcher.add_handler(CommandHandler("start", lol, run_async=True))
 dispatcher.add_handler(CommandHandler("help", help, run_async=True))
 dispatcher.add_handler(CommandHandler("repo", source, run_async=True))
 connect_handler = ConversationHandler(
-      entry_points=[CommandHandler("connect", connect))],
+      entry_points=[CommandHandler("connect", connect)],
       states = {
                ID: [MessageHandler(Filters.TEXT, id)],
                RESULT: [MessageHandler(Filters.TEXT, result)],
