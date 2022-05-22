@@ -8,7 +8,15 @@ from requests import get, post
 from os import environ
 import config
 
-from telegram.ext import CommandHandler, Updater, CallbackContext
+from telegram.ext import (
+      CommandHandler,
+      Updater,
+      CallbackContext
+      ConversationHandler,
+      MessageHandler,
+      filters,
+)
+
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 
 server = Flask(__name__)
@@ -40,7 +48,7 @@ UPDATES = "TeamScenario"
 
 def help(update: Update, context: CallbackContext):
     message = update.effective_message
-    textto = "None gonna help you deploy your own bot"
+    textto = "To get alerts about your repository follow the steps below \n1.Add @ScenarioXbot in your group where you want bot to send alerts. \n2.Send /id command. \n3.Send me your group I'd (must start with -100) \n4. Add this bot in that group where you want to receive alerts.\n\nTo continue send /connect"
     pic = "https://telegra.ph/file/18155a81e0d3f0e71fd09.jpg"
     buttons1 = [
             [
@@ -52,6 +60,19 @@ def help(update: Update, context: CallbackContext):
        ]
     markup_lol = InlineKeyboardMarkup(buttons1)
     update.message.reply_photo(photo=pic, caption=textto, reply_markup=markup_lol)
+
+RESULT, CONNECT, ID = range(1)
+
+def connect(update: Update, context: CallbackContext):
+    return ID
+
+def id(update: Update, context: CallbackContext):
+    update.message.reply_text("Send me your group id:", input_field_placeholder="Id?")
+    return RESULT
+
+def result(update: Update, context: CallbackContext):
+    id = input_field_placeholder
+    update.message.reply_text(f"https://gitgrambots.herokuapp.com//{id}")
 
 def lol(update: Update, context: CallbackContext):
     message = update.effective_message
@@ -96,6 +117,13 @@ def getSourceCodeLink(_bot, update):
 dispatcher.add_handler(CommandHandler("start", lol, run_async=True))
 dispatcher.add_handler(CommandHandler("help", help, run_async=True))
 dispatcher.add_handler(CommandHandler("repo", source, run_async=True))
+connect_handler = ConversationHandler(
+      entry_pounts=[CommandHandler("connect", connect))],
+      states = {
+               ID: [MessageHandler(Filters.TEXT, id)],
+               RESULT: [MessageHandler(Filters.TEXT, result)],
+          },
+dispatcher.add_handler(connect_handler)
 updater.start_polling()
 
 TG_BOT_API = f'https://api.telegram.org/bot{BOT_TOKEN}/'
