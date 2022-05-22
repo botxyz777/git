@@ -1,8 +1,8 @@
-# Your Bot token in the quotes taken from @BotFather
+# Your Bot token in the quotes from @BotFather
 BOT_TOKEN = ""
 
 # Project Name of your Project
 PROJECT_NAME = "GitGram"
 
 # If you forked the source code, grab your repo's link and paste it below!
-GIT_REPO_URL = "https://github.com/Snehashish06/git"
+GIT_REPO_URL = "https://github.com/TeamScenario/GitGram"
