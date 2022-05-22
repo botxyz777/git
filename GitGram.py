@@ -57,7 +57,7 @@ def lol(update: Update, context: CallbackContext):
           ]
 
     reply_markup = InlineKeyboardMarkup(buttons)
-    update.message.reply_photo(photo=Pop, caption=text, reply_markup=reply_markup, run_async=True)
+    update.message.reply_photo(photo=Pop, caption=text, reply_markup=reply_markup)
 
 
 def source(_bot, update):
@@ -76,7 +76,7 @@ def getSourceCodeLink(_bot, update):
         f"{GIT_REPO_URL}"
     )
 
-dispatcher.add_handler(CommandHandler("start", lol"))
+dispatcher.add_handler(CommandHandler("start", lol, run_async=True))
 help_handler = CommandHandler("help", help)
 supportCmd = CommandHandler("support", support)
 sourcecode = CommandHandler("source", source)
