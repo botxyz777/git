@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import sys
 from logging import basicConfig, getLogger, INFO
 from flask import Flask, request, jsonify
 from html import escape
@@ -33,15 +34,24 @@ dispatcher = updater.dispatcher
 
 print("If you need more help, join @ScenarioXsupport in Telegram.")
 
+SOURCE = "TeamScenario/GitGram"
+DEVELOPER = "CoderX"
+UPDATES = "TeamScenario"
 
-
-def help(_bot, update):
-    """/help message for the bot"""
+def help(update: Update, context: CallbackContext):
     message = update.effective_message
-    message.reply_text(
-        f"*Available Commands*\n\n`/connect` - Setup how to connect this chat to receive Git activity notifications.\n`/support` - Get links to get support if you're stuck.\n`/source` - Get the Git repository URL.",
-        parse_mode="markdown"
-    )
+    textto = "None gonna help you deploy your own bot"
+    pic = "https://telegra.ph/file/18155a81e0d3f0e71fd09.jpg"
+    buttons1 = [
+            [
+              InlineKeyboardButton("Source", url=f"https://github.com/{SOURCE}"),
+              InlineKeyboardButton ("Updates", url=f"https://t.me/{UPDATES}"),
+            ],
+            [
+             InlineKeyboardButton("Owner", url=f"https://t.me/{DEVELOPER}")],
+       ]
+    markup_lol = InlineKeyboardMarkup(buttons1)
+    update.message.reply_photo(photo=pic, caption=textto, reply_markup=markup_lol)
 
 def lol(update: Update, context: CallbackContext):
     message = update.effective_message
@@ -77,10 +87,9 @@ def getSourceCodeLink(_bot, update):
     )
 
 dispatcher.add_handler(CommandHandler("start", lol, run_async=True))
-help_handler = CommandHandler("help", help)
+dispatcher.add_handler(CommandHandler("help", help, run_async=True))
 sourcecode = CommandHandler("source", source)
 
-dispatcher.add_handler(help_handler)
 dispatcher.add_handler(sourcecode)
 updater.start_polling()
 
@@ -262,6 +271,18 @@ def git_api(groupid):
                            f"Branch {data['ref'].split('/')[-1]} <b>{data['ref'].split('/')[-2]}</b> on <a href='{data['repository']['html_url']}'>{data['repository']['name']}</a> was deleted by <a href='{data['sender']['html_url']}'>{data['sender']['login']}</a>!",
                            "html")
         return response
+
+    if DEVELOPER != "CoderX":
+       print("So sad, you have change developer, change it back to CoderX else I won't work")
+       sys.exit(1)
+
+    if SOURCE != "TeamScenario/GitGram":
+       print("So sad, you have changed source, change it back to TeamScenario/GitGram else I won't work")
+       sys.exit(1)
+
+    if UPDATES != "TeamScenario":
+       print("So sad, you have changed Updates, change it back to TeamScenario else I won't work")
+       sys.exit(1)
 
     if data.get('forced'):
         response = post_tg(groupid,
