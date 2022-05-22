@@ -78,7 +78,6 @@ def getSourceCodeLink(_bot, update):
 
 dispatcher.add_handler(CommandHandler("start", lol, run_async=True))
 help_handler = CommandHandler("help", help)
-supportCmd = CommandHandler("support", support)
 sourcecode = CommandHandler("source", source)
 
 dispatcher.add_handler(help_handler)
