@@ -14,7 +14,6 @@ from telegram.ext import (
       CallbackContext,
       ConversationHandler,
       MessageHandler,
-      Filters,
 )
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
@@ -121,8 +120,8 @@ dispatcher.add_handler(CommandHandler("repo", source, run_async=True))
 connect_handler = ConversationHandler(
       entry_points=[CommandHandler("connect", connect)],
       states = {
-               ID: [MessageHandler(Filters.TEXT, id)],
-               RESULT: [MessageHandler(Filters.TEXT, result)],
+               ID: [MessageHandler(id)],
+               RESULT: [MessageHandler(result)],
           },
       )
 dispatcher.add_handler(connect_handler)
