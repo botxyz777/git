@@ -44,11 +44,11 @@ def help(update: Update, context: CallbackContext):
     pic = "https://telegra.ph/file/18155a81e0d3f0e71fd09.jpg"
     buttons1 = [
             [
-              InlineKeyboardButton("Source", url=f"https://github.com/{SOURCE}"),
+              InlineKeyboardButton("Owner", url=f"https://t.me/{DEVELOPER}"),
               InlineKeyboardButton ("Updates", url=f"https://t.me/{UPDATES}"),
             ],
             [
-             InlineKeyboardButton("Owner", url=f"https://t.me/{DEVELOPER}")],
+             InlineKeyboardButton("Source", url=f"https://github.com/{SOURCE}")],
        ]
     markup_lol = InlineKeyboardMarkup(buttons1)
     update.message.reply_photo(photo=pic, caption=textto, reply_markup=markup_lol)
@@ -56,7 +56,7 @@ def help(update: Update, context: CallbackContext):
 def lol(update: Update, context: CallbackContext):
     message = update.effective_message
     Pop = "https://telegra.ph/file/18155a81e0d3f0e71fd09.jpg"
-    text = "Hello there I'm a gitgram bot made by TeamScenario \nCheck support group for help regarding bot or deployment."
+    text = "Hello there I'm GitGram bot made by @TeamScenario \nCheck support group for help regarding bot or deployment."
     
     buttons = [
              [
@@ -71,12 +71,19 @@ def lol(update: Update, context: CallbackContext):
 
 
 def source(_bot, update):
-    """Link to Source"""
     message = update.effective_message
-    message.reply_text(
-        f"*Source*:\n[GitGram](https://github.com/TeamScenario/GitGram).",
-        parse_mode="markdown"
-    )
+    textto = "Source of this bot!"
+    pic = "https://telegra.ph/file/18155a81e0d3f0e71fd09.jpg"
+    buttons1 = [
+            [
+              InlineKeyboardButton("Owner", url=f"https://t.me/{DEVELOPER}"),
+              InlineKeyboardButton ("Updates", url=f"https://t.me/{UPDATES}"),
+            ],
+            [
+             InlineKeyboardButton("Source", url=f"https://github.com/{SOURCE}")],
+       ]
+    markup_lol = InlineKeyboardMarkup(buttons1)
+    update.message.reply_photo(photo=pic, caption=textto, reply_markup=markup_lol)
 
 
 def getSourceCodeLink(_bot, update):
@@ -88,9 +95,7 @@ def getSourceCodeLink(_bot, update):
 
 dispatcher.add_handler(CommandHandler("start", lol, run_async=True))
 dispatcher.add_handler(CommandHandler("help", help, run_async=True))
-sourcecode = CommandHandler("source", source)
-
-dispatcher.add_handler(sourcecode)
+dispatcher.add_handler(CommandHandler("source", "repo", source, run_async=True))
 updater.start_polling()
 
 TG_BOT_API = f'https://api.telegram.org/bot{BOT_TOKEN}/'
