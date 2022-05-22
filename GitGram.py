@@ -13,6 +13,7 @@ from telegram.ext import (
       Updater,
       CallbackContext,
       ConversationHandler,
+      ContextTypes,
       MessageHandler,
       Filters,
 )
@@ -114,6 +115,13 @@ def getSourceCodeLink(_bot, update):
         f"{GIT_REPO_URL}"
     )
 
+def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    user = update.message.from_user
+    update.message.reply_text("Ok! Send /start")
+
+    return ConversationHandler.END
+
+
 dispatcher.add_handler(CommandHandler("start", lol, run_async=True))
 dispatcher.add_handler(CommandHandler("help", help, run_async=True))
 dispatcher.add_handler(CommandHandler("repo", source, run_async=True))
@@ -124,7 +132,8 @@ connect_handler = ConversationHandler(
                ID: [MessageHandler(Filters.text, id)],
                RESULT: [MessageHandler(Filters.text, result)],
           },
-      )
+        fallbacks=[CommandHandler("cancel", cancel)],
+    )
 dispatcher.add_handler(connect_handler)
 updater.start_polling()
 
