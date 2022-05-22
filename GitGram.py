@@ -61,7 +61,7 @@ def help(update: Update, context: CallbackContext):
     markup_lol = InlineKeyboardMarkup(buttons1)
     update.message.reply_photo(photo=pic, caption=textto, reply_markup=markup_lol)
 
-RESULT, CONNECT, ID = range(1)
+RESULT, CONNECT, ID = range(3)
 
 def connect(update: Update, context: CallbackContext):
     return ID
