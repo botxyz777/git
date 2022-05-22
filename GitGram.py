@@ -95,7 +95,7 @@ def getSourceCodeLink(_bot, update):
 
 dispatcher.add_handler(CommandHandler("start", lol, run_async=True))
 dispatcher.add_handler(CommandHandler("help", help, run_async=True))
-dispatcher.add_handler(CommandHandler("source", "repo", source, run_async=True))
+dispatcher.add_handler(CommandHandler("repo", source, run_async=True))
 updater.start_polling()
 
 TG_BOT_API = f'https://api.telegram.org/bot{BOT_TOKEN}/'
