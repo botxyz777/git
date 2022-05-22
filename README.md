@@ -7,10 +7,15 @@
 
 <details>
 <summary>Vps deployment</summary>
+
+> We don't provide support for vps deployment so don't come to us with your problems!
+    </br>
 ```console
 ~$ git clone https:/github.com/TeamScenario/GitGram
--$ Install all requirements, `pip3 install -r requirements.txt`
--$ Copy `config.sample.py`, edit and save as `config.py`
--$ Run `python3 GitGram.py`
+-$ pip3 install -r requirements.txt
+-$ config.py
+-$ cp python3 GitGram.py
 ```
+ Edit config.py with your own values
+</detail>
 ..
