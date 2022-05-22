@@ -9,7 +9,7 @@
 
 ## How To Deploy 
 <details>
-<summary><b>🔗 Deploy to Heroku</b></summary>
+<summary><b>🔗 Deploy on Heroku</b></summary>
 <br>
 
 > All vars are already filled and some are optional not filling them will not make big difference.
