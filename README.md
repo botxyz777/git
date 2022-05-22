@@ -48,7 +48,7 @@
 -$ python3 GitGram.py
 ```
  Edit config.py with your own values
-</detail>
+</details>
 
 <details>
 <summary>Contact us 🌟</summary>
