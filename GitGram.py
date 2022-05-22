@@ -121,7 +121,7 @@ dispatcher.add_handler(CommandHandler("repo", source, run_async=True))
 connect_handler = ConversationHandler(
       entry_points=[CommandHandler("connect", connect)],
       states = {
-               ID: [MessageHandler(CallbackContext, id)],
+               ID: [MessageHandler(Filters.text, id)],
                RESULT: [MessageHandler(Filters.text, result)],
           },
       )
