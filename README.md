@@ -63,7 +63,6 @@
 
 ## TODO
 - [ ] Better readme
-- [x] Less vars to fill
 - [ ] Design improvement
 
 [^TeamScenario]
