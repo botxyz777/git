@@ -74,15 +74,13 @@ def connect(update: Update, context: CallbackContext):
     return ID
 
 def id(update: Update, context: CallbackContext):
-    reply_keyboard = [["Connect"]]
     update.message.reply_text(
     "Send me your group id:",
-    reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, input_field_placeholder="Id?"))
+    reply_markup=ReplyKeyboardMarkup(input_field_placeholder="Id?"))
     return RESULT
 
 def result(update: Update, context: CallbackContext):
-    id = input_field_placeholder
-    update.message.reply_text(f"https://gitgrambots.herokuapp.com//{id}")
+    update.message.reply_text(f"https://gitgrambots.herokuapp.com//{reply_markup}")
 
 def lol(update: Update, context: CallbackContext):
     message = update.effective_message
