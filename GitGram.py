@@ -74,7 +74,7 @@ def connect(update: Update, context: CallbackContext):
     return ID
 
 def id(update: Update, context: CallbackContext):
-   reply_keyboard = [["Connect"]]
+    reply_keyboard = [["Connect"]]
     update.message.reply_text(
     "Send me your group id:",
     reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, input_field_placeholder="Id?"))
