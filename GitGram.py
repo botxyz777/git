@@ -50,7 +50,7 @@ UPDATES = "TeamScenario"
 
 def help(update: Update, context: CallbackContext):
     message = update.effective_message
-    textto = "To get alerts about your repository follow the steps below \n1.Add @ScenarioXbot in your group where you want bot to send alerts. \n2.Send /id command. \n3.Send /connect <Your group id> (must start with -100) \n4. Add this bot in that group where you want to receive alerts."
+    textto = "To get alerts about your repository follow the steps below \n\n1.Add @ScenarioXbot in your group where you want bot to send alerts. \n\n2.Send /id command. \n\n3.Send /connect <Your group id> (must start with -100) \n\n4. Add this bot in that group where you want to receive alerts."
     pic = "https://telegra.ph/file/18155a81e0d3f0e71fd09.jpg"
     buttons1 = [
             [
@@ -104,7 +104,7 @@ def connect(update: Update, context: CallbackContext):
         reply_text = "Kindly give some text"
 
     try:
-        reply_text = f"Payload url: `https://gitgrambots.herokuapp.com//{text}` \nSend /morehelp for more help."
+        reply_text = f"Payload url: `https://gitgrambots.herokuapp.com//{text}` \n\nSend /morehelp for more help."
     except Exception as e:
         reply_text = f"{e}"
     message.reply_text(reply_text, parse_mode=ParseMode.MARKDOWN)
@@ -117,7 +117,7 @@ def getSourceCodeLink(_bot, update):
     )
 
 def more_help(update: Update, context: CallbackContext):
-    tt = "1.Go to repo settings \n2.Find webhooks there \n3.Add Payload url there \n4. Change content type to application/json \n5.Which events would you like to trigger this webhook? \nChoose 1st or 2nd option \n6. Add webhook 7. Done!"
+    tt = "1.Go to repo settings \n\n2.Find webhooks there \n\n3.Add Payload url there \n\n4. Change content type to application/json \n\n5.Which events would you like to trigger this webhook? \n• Choose 1st or 2nd option \n\n6. Add webhook \n\n7. Done!"
     image = "https://telegra.ph/file/0239f2414d3430c29338f.jpg"
     btn = [
           [
