@@ -20,8 +20,7 @@ if ENV:
     BOT_TOKEN = environ.get('BOT_TOKEN', None)
     PROJECT_NAME = environ.get('PROJECT_NAME', None)
     ip_addr = environ.get('APP_URL', None)
-    # You kanged our project without forking it, we'll get you DMCA'd.
-    GIT_REPO_URL = environ.get('GIT_REPO_URL', "https://github.com/MadeByThePinsHub/GitGram")
+    GIT_REPO_URL = environ.get('GIT_REPO_URL', "https://github.com/TeamScenario/GitGram")
 else:
     BOT_TOKEN = config.BOT_TOKEN
     PROJECT_NAME = config.PROJECT_NAME
@@ -31,14 +30,14 @@ else:
 updater = Updater(token=BOT_TOKEN, workers=1)
 dispatcher = updater.dispatcher
 
-print("If you need more help, join @GitGramChat in Telegram.")
+print("If you need more help, join @ScenarioXsupport in Telegram.")
 
 
 def start(_bot, update):
     """/start message for bot"""
     message = update.effective_message
     message.reply_text(
-        f"This is the Updates watcher for {PROJECT_NAME}. I am just notify users about what's happen on their Git repositories thru webhooks.\n\nYou need to [self-host](https://waa.ai/GitGram) or see /help to use this bot on your groups.",
+        f"This is the Updates watcher for {PROJECT_NAME}. I just notify users about what's happen on their Git repositories through webhooks.\n\ see /help to use this bot on your groups.",
         parse_mode="markdown")
 
 
@@ -55,7 +54,7 @@ def support(_bot, update):
     """Links to Support"""
     message = update.effective_message
     message.reply_text(
-        f"*Getting Support*\n\nTo get support in using the bot, join [the GitGram support](https://t.me/GitGramChat).",
+        f"*Getting Support*\n\nTo get support in using the bot, join [ScenarioXsupport](https://t.me/ScenarioXsupport).",
         parse_mode="markdown"
     )
 
@@ -64,7 +63,7 @@ def source(_bot, update):
     """Link to Source"""
     message = update.effective_message
     message.reply_text(
-        f"*Source*:\n[GitGram Repo](https://waa.ai/GitGram).",
+        f"*Source*:\n[GitGram](https://github.com/TeamScenario/GitGram).",
         parse_mode="markdown"
     )
 
