@@ -12,18 +12,13 @@ from telegram.ext import (
       CommandHandler,
       Updater,
       CallbackContext,
-      ConversationHandler,
-      ContextTypes,
-      MessageHandler,
-      Filters,
 )
 
 from telegram import (
     InlineKeyboardButton, 
     InlineKeyboardMarkup, 
     Update,
-    ReplyKeyboardMarkup,
-    ReplyKeyboardRemove,
+    ParseMode,
 )
 
 server = Flask(__name__)
@@ -55,7 +50,7 @@ UPDATES = "TeamScenario"
 
 def help(update: Update, context: CallbackContext):
     message = update.effective_message
-    textto = "To get alerts about your repository follow the steps below \n1.Add @ScenarioXbot in your group where you want bot to send alerts. \n2.Send /id command. \n3.Send me your group I'd (must start with -100) \n4. Add this bot in that group where you want to receive alerts.\n\nTo continue send /connect"
+    textto = "To get alerts about your repository follow the steps below \n1.Add @ScenarioXbot in your group where you want bot to send alerts. \n2.Send /id command. \n3.Send /connect <Your group id> (must start with -100) \n4. Add this bot in that group where you want to receive alerts."
     pic = "https://telegra.ph/file/18155a81e0d3f0e71fd09.jpg"
     buttons1 = [
             [
@@ -68,19 +63,6 @@ def help(update: Update, context: CallbackContext):
     markup_lol = InlineKeyboardMarkup(buttons1)
     update.message.reply_photo(photo=pic, caption=textto, reply_markup=markup_lol)
 
-RESULT, CONNECT, ID = range(3)
-
-def connect(update: Update, context: CallbackContext):
-    return ID
-
-def id(update: Update, context: CallbackContext):
-    update.message.reply_text(
-    "Send me your group id:",
-    reply_markup=ReplyKeyboardMarkup(input_field_placeholder="Id?"))
-    return RESULT
-
-def result(update: Update, context: CallbackContext):
-    update.message.reply_text(f"https://gitgrambots.herokuapp.com//{reply_markup}")
 
 def lol(update: Update, context: CallbackContext):
     message = update.effective_message
@@ -114,6 +96,18 @@ def source(_bot, update):
     markup_lol = InlineKeyboardMarkup(buttons1)
     update.message.reply_photo(photo=pic, caption=textto, reply_markup=markup_lol)
 
+def connect(update: Update, context: CallbackContext):
+    message = update.effective_message
+    text = message.text[len("/connect ") :]
+
+    if not text:
+        reply_text = "Kindly give some text"
+
+    try:
+        reply_text = f"Payload url: `https://gitgrambots.herokuapp.com//{text}` \nSend /morehelp for more help."
+    except Exception as e:
+        reply_text = f"{e}"
+    message.reply_text(reply_text, parse_mode=ParseMode.MARKDOWN)
 
 def getSourceCodeLink(_bot, update):
     """Pulls link to the source code."""
@@ -122,27 +116,24 @@ def getSourceCodeLink(_bot, update):
         f"{GIT_REPO_URL}"
     )
 
-def cancel(update: Update, context: CallbackContext):
-    user = update.message.from_user
-    update.message.reply_text("Ok! Send /start", reply_markup=ReplyKeyboardRemove()
-    )
-
-    return ConversationHandler.END
+def more_help(update: Update, context: CallbackContext):
+    tt = "1.Go to repo settings \n2.Find webhooks there \n3.Add Payload url there \n4. Change content type to application/json \n5.Which events would you like to trigger this webhook? \nChoose 1st or 2nd option \n6. Add webhook 7. Done!"
+    image = "https://telegra.ph/file/0239f2414d3430c29338f.jpg"
+    btn = [
+          [
+           InlineKeyboardButton("Updates", url=f"https://t.me/{UPDATES}"),
+           InlineKeyboardButton("Owner", url=f"https://t.me/{DEVELOPER}"),
+          ],
+      ]
+    haha = InlineKeyboardMarkup(btn)
+    update.message.reply_photo(photo=image, caption=tt, reply_markup=haha)
 
 
 dispatcher.add_handler(CommandHandler("start", lol, run_async=True))
 dispatcher.add_handler(CommandHandler("help", help, run_async=True))
 dispatcher.add_handler(CommandHandler("repo", source, run_async=True))
-
-connect_handler = ConversationHandler(
-      entry_points=[CommandHandler("connect", connect)],
-      states = {
-               ID: [MessageHandler(Filters.text, id)],
-               RESULT: [MessageHandler(Filters.text, result)],
-          },
-        fallbacks=[CommandHandler("cancel", cancel)],
-    )
-dispatcher.add_handler(connect_handler)
+dispatcher.add_handler(CommandHandler("connect", connect, run_async=True))
+dispatcher.add_handler(CommandHandler("morehelp", more_help, run_async=True))
 updater.start_polling()
 
 TG_BOT_API = f'https://api.telegram.org/bot{BOT_TOKEN}/'
