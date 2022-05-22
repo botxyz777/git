@@ -18,7 +18,13 @@ from telegram.ext import (
       Filters,
 )
 
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram import (
+    InlineKeyboardButton, 
+    InlineKeyboardMarkup, 
+    Update,
+    ReplyKeyboardMarkup,
+    ReplyKeyboardRemove,
+)
 
 server = Flask(__name__)
 
@@ -69,7 +75,7 @@ def connect(update: Update, context: CallbackContext):
 
 def id(update: Update, context: CallbackContext):
     update.message.reply_text(
-    "Send me your group id:",,
+    "Send me your group id:",
     reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, input_field_placeholder="Id?")
     return RESULT
 
@@ -119,7 +125,8 @@ def getSourceCodeLink(_bot, update):
 
 def cancel(update: Update, context: CallbackContext):
     user = update.message.from_user
-    update.message.reply_text("Ok! Send /start")
+    update.message.reply_text("Ok! Send /start", reply_markup=ReplyKeyboardRemove()
+    )
 
     return ConversationHandler.END
 
