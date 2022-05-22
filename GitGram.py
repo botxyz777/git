@@ -81,7 +81,6 @@ help_handler = CommandHandler("help", help)
 sourcecode = CommandHandler("source", source)
 
 dispatcher.add_handler(help_handler)
-dispatcher.add_handler(supportCmd)
 dispatcher.add_handler(sourcecode)
 updater.start_polling()
 
