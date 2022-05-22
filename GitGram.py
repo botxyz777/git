@@ -8,7 +8,7 @@ from os import environ
 import config
 
 from telegram.ext import CommandHandler, Updater, CallbackContext
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 
 server = Flask(__name__)
 
